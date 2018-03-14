@@ -74,14 +74,6 @@ class App extends Component {
             changeSelection={this.handleChangeSelection}
           />
         </div>
-        <div>
-          <h3>Machines</h3>
-          <GridDefault
-            rows={this.state.rows}
-            columns={this.state.columns}
-            changeSelection={this.handleChangeSelection}
-          />
-        </div>
       </div>
     );
   }
