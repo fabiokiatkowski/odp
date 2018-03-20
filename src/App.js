@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Reboot from 'material-ui/Reboot';
+import CssBaseline from 'material-ui/CssBaseline';
 import Navbar from './Component/Navbar';
 import GridDefault from './Component/GridDefault';
 
@@ -60,12 +60,12 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Reboot>
+        <CssBaseline>
           <Navbar
             open={this.state.openAddModal}
             show={this.handleShowAddModal}
           />
-        </Reboot>
+        </CssBaseline>
         <div>
           <h3>Red Cloths</h3>
           <GridDefault
