@@ -2,10 +2,25 @@ import React, { Component } from 'react';
 import CssBaseline from 'material-ui/CssBaseline';
 import Navbar from './Component/Navbar';
 import GridDefault from './Component/GridDefault';
+import MachineOptionsSelect from './Component/MachineOptionsSelect';
 
 class App extends Component {
   state = {
     openAddModal: false,
+    isOpenMachineOptions: true,
+    machineSelected: {},
+    machineOptions: [
+      {id: 1, description: 'Descricao1'},
+      {id: 2, description: 'Descricao2'},
+      {id: 3, description: 'Descricao3'},
+      {id: 4, description: 'Descricao4'},
+      {id: 5, description: 'Descricao5'},
+      {id: 6, description: 'Descricao6'},
+      {id: 7, description: 'Descricao7'},
+      {id: 8, description: 'Descricao8'},
+      {id: 9, description: 'Descricao9'},
+      {id: 10, description: 'Descricao10'}
+    ],
     selectedRows: [],
     columns: [
       { name: "name", title: "Name" },
@@ -50,30 +65,48 @@ class App extends Component {
       { sex: "Male", name: "Mark", city: "Austin", car: "Nissan Altima" }
     ]
   };
+  
   handleShowAddModal = () => {
     const newV = this.state.openAddModal;
     this.setState({ openAddModal: !newV });
   }
+  
   handleChangeSelection = (selection) => {
     this.setState({ selectedRows : selection});
   }
+
+  handleSelectMachine = (id) => {
+    const machineFound = this.state.machineOptions.find(machine => machine.id === id);
+    const { isOpenMachineOptions } = this.state;
+    this.setState({ machineSelected: machineFound, isOpenMachineOptions: !isOpenMachineOptions })
+  }
+
   render() {
+    const { machineSelected, isOpenMachineOptions } = this.state;
     return (
       <div>
-        <CssBaseline>
-          <Navbar
-            open={this.state.openAddModal}
-            show={this.handleShowAddModal}
-          />
-        </CssBaseline>
+         <MachineOptionsSelect 
+          isOpenMachineOptions={isOpenMachineOptions}
+          options={this.state.machineOptions} 
+          selectMachine={this.handleSelectMachine} />
+
         <div>
-          <h3>Red Cloths</h3>
-          <GridDefault
-            rows={this.state.rows}
-            columns={this.state.columns}
-            changeSelection={this.handleChangeSelection}
-          />
+          <CssBaseline>
+            <Navbar
+              open={this.state.openAddModal}
+              show={this.handleShowAddModal}
+            />
+          </CssBaseline>
+          <div>
+            <h3>Red Cloths, selected machine: <b> { machineSelected.description ? machineSelected.description : 'None'  } </b></h3>
+            <GridDefault
+              rows={this.state.rows}
+              columns={this.state.columns}
+              changeSelection={this.handleChangeSelection}
+            />
+          </div>
         </div>
+        }
       </div>
     );
   }
